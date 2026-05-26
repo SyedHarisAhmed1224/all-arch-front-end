@@ -1,0 +1,13 @@
+import type { NextConfig } from "next"
+
+const nextConfig: NextConfig = {
+    allowedDevOrigins: ['192.168.100.7'],
+
+    logging: {
+        fetches: {
+            fullUrl: true,
+        },
+    },
+}
+
+export default nextConfig
