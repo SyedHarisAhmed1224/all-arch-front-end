@@ -1,6 +1,19 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+:root {
+    --custom-text-color: #1A1A1A;
+    --custom-sub-text-color: #575757;
+    --lp-portal-info-bg-color: #111111;
+    --custom-text-red: #DC2626;
+    --custom-red-bg: #FEE2E2;
+    --meta-pill-bg: #F5F0EB;
+}
 
 body {
     margin: 0;
     box-sizing: border-box;
+    background-color: #F5F0EB;
+    overflow-x: hidden;
 }

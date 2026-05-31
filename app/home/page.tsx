@@ -1,9 +1,16 @@
 import React from 'react'
+import Marquee from '../components/Marquee/Marquee'
+import NavBar from '../components/NavBar/NavBar'
+import LandingPageContent from './components/LandingPageContent'
 
-const Home = () => {
+const Home: React.FC = () => {
     return (
         <div>
-            <h1>Welcome to the Home Page</h1>
+            <header>
+                <Marquee />
+                <NavBar />
+                <LandingPageContent />
+            </header>
         </div>
     )
 }

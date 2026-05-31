@@ -1,0 +1,9 @@
+.custom-portal-type-card {
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.200);
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-portal-type-card:hover {
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.400);
+    transform: translateY(-5px);
+}
