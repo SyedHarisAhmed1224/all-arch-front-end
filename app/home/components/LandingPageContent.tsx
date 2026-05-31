@@ -154,11 +154,34 @@ const LandingPageContent: React.FC = () => {
                 </div>
             </section>
 
-            <section className='h-[30vw] w-full flex flex-col mt-20 px-10 bg-(--custom-text-red) flex flex-col items-center justify-center'>
+            <section className='h-fit w-full flex flex-col mt-20 px-10 bg-(--custom-text-red) items-center justify-center gap-3 py-20'>
                 <div className='uppercase text-white bg-[rgba(255,255,255,.2)] rounded-2xl py-1 px-3 text-[0.8rem] font-semibold'>
                     Join Today
                 </div>
+
+                <span className='text-white font-["lora"] text-[2.2rem] font-semibold'>One sign-up. Two powerful portals.</span>
+
+                <span className='text-center text-white opacity-70 text-[1rem]'>Whether you're here to learn, earn, or get your project professionally <br /> done — ALLARCH has a portal for you.</span>
+
+                <div className='flex w-fit h-fit gap-5 mt-7'>
+                    <button className='bg-white text-red-800 font-semibold py-2 px-8 rounded-3xl cursor-pointer hover:-translate-y-1 transition duration-200 ease-in-out'>Join as Researcher</button>
+                    <button className='text-white border-2 border-gray-400 hover:border-white transition duration-200 ease-in-out cursor-pointer hover:-translate-y-1 font-semibold py-2 px-8 rounded-3xl'>Hire a Researcher</button>
+                </div>
             </section>
+
+            <footer className='h-[60vh] w-full bg-(--lp-portal-info-bg-color) py-10 px-20 flex flex-col'>
+                <div className='flex'>
+                    <div className='flex flex-col'>
+                        <div className='text-white font-semibold text-[1.5rem]'>ALL<span className='text-(--custom-text-red)'>ARCH</span></div>
+                        <p className="mt-1 text-[10px] uppercase tracking-[0.25em] text-white opacity-30 mt-2">
+                            The Hub of All Research
+                        </p>
+                        <span className='text-white opacity-40 text-[0.9rem] mt-2'>
+                            A dual-purpose research platform. Train, earn, and publish as a researcher — or get professional research services as a client.
+                        </span>
+                    </div>
+                </div>
+            </footer>
         </>
     )
 }
