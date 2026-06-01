@@ -15,7 +15,7 @@ const PortalTypeInfoCards: React.FC<PortalTypeInfoCardsProps> = ({ type, title, 
                 background: type === 'researcher' ? 'linear-gradient(135deg, #1A1A1A, #2A1010)' : 'linear-gradient(135deg, #0A1A10, #071520)',
                 border: type === 'researcher' ? '1px solid rgba(220, 38, 38, .3)' : '1px solid rgba(5, 150, 105, .25)'
             }}
-            className='custom-portal-type-card w-full h-full rounded-[5%] flex flex-col gap-4 py-10 px-8 justify-start cursor-pointer'
+            className='custom-portal-type-card w-full h-full rounded-3xl flex flex-col gap-4 py-10 px-8 justify-start cursor-pointer'
         >
             <div className='text-[2.2rem]'>{icon}</div>
             <span className='text-white font-semibold text-[1.3rem]'>{title}</span>

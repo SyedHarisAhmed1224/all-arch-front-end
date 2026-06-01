@@ -6,11 +6,11 @@ import LandingPageContent from './components/LandingPageContent'
 const Home: React.FC = () => {
     return (
         <div>
-            <header>
+            <header className="sticky top-0 z-50">
                 <Marquee />
                 <NavBar />
-                <LandingPageContent />
             </header>
+            <LandingPageContent />
         </div>
     )
 }

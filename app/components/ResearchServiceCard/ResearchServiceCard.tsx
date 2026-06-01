@@ -10,7 +10,7 @@ interface ResearchServiceCardProps {
 
 const ResearchServiceCard: React.FC<ResearchServiceCardProps> = ({ cardInfo }) => {
     return (
-        <div className='w-65 h-60 bg-white border border-gray-300 rounded-2xl px-5 py-5 flex flex-col gap-1 transition duration-200 hover:-translate-y-1'>
+        <div className='w-80 sm:w-65 h-50 sm:h-60 bg-white border border-gray-300 rounded-2xl px-5 py-5 flex flex-col gap-1 transition duration-200 hover:-translate-y-1'>
             <div className='w-fit h-fit py-2 px-2 bg-red-100 rounded-xl'>
                 <span className='text-[1.25rem]'>{cardInfo.icon}</span>
             </div>
