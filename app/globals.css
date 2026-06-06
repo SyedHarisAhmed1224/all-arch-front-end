@@ -6,9 +6,25 @@
     --custom-text-color: #1A1A1A;
     --custom-sub-text-color: #575757;
     --lp-portal-info-bg-color: #111111;
+    
     --custom-text-red: #DC2626;
     --custom-red-bg: #FEE2E2;
+    
     --meta-pill-bg: #F5F0EB;
+
+    --researcher-gradient-one: #1A1A1A;
+    --researcher-gradient-two: #2A1010;
+
+    --client-gradient-one: #0A1A10;
+    --client-gradient-two: #071520;
+
+    --client-top-bar-text-color: #34D399;
+    --client-top-bar-text-border-color: #1f7a59;
+
+    --client-text-green: #059669;
+    --client-text-green-hover: #065F46;
+
+    --input-text-green-hover: #068662;
 }
 
 body {
