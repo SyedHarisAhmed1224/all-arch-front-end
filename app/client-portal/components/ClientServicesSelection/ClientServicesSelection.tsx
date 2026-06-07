@@ -4,10 +4,12 @@ import ClientServicesCard, { ClientServicesCardType } from '../ClientServicesCar
 import { ClientServicesCardsInfo } from '../../../constants/ClientPortalData'
 import { useState } from 'react'
 import ServiceAgreement from '../ServiceAgreement/ServiceAgreement'
+import ProjectOnboarding from '../ProjectOnboarding/ProjectOnboarding'
 
 const ClientServicesSelection: React.FC = () => {
     const [selectedServices, setSelectedServices] = useState<number[]>([])
     const [showContract, setShowContract] = useState<boolean>(false)
+    const [showOnBoarding, setShowOnBoarding] = useState<boolean>(false)
 
     const modifyServices = (serviceID: number) => {
         setSelectedServices(prev =>
@@ -20,17 +22,45 @@ const ClientServicesSelection: React.FC = () => {
     const toggleContract = () => {
         setShowContract(!showContract)
     }
+    
+    const toggleOnBoarding = () => {
+        setShowOnBoarding(!showOnBoarding)
+    }
+
+    const acceptContract = () => {
+        setShowContract(!showContract)
+        setShowOnBoarding(!showOnBoarding)
+    }
 
     return (
         <div className='w-full h-full'>
 
-            <div className='fixed w-screen h-screen left-0 top-0 bg-black opacity-80 z-10'></div>
+            {
+                showContract &&
+                <div>
+                    <div className='fixed w-screen h-screen left-0 top-0 bg-black opacity-80 z-10'></div>
 
-            <div className='fixed w-screen h-screen left-0 top-0 z-20 flex items-center justify-center'>
-                <div className='w-150 h-fit'>
-                    <ServiceAgreement />
+                    <div className='fixed w-screen h-screen left-0 top-0 z-20 flex items-center justify-center'>
+                        <div className='w-150 h-fit'>
+                            <ServiceAgreement onAccept={acceptContract} selectedServices={selectedServices} onClose={toggleContract} />
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
+
+            {
+                showOnBoarding &&
+                <div>
+                    <div className='fixed w-screen h-screen left-0 top-0 bg-black opacity-80 z-10'></div>
+
+                    <div className='fixed w-screen h-screen left-0 top-0 z-20 flex items-center justify-center'>
+                        <div className='w-150 h-fit'>
+                            <ProjectOnboarding onClose={toggleOnBoarding} />
+                        </div>
+                    </div>
+                </div>
+            }
+
             <div className='flex flex-wrap items-center gap-5 w-full h-fit'>
                 {
                     ClientServicesCardsInfo.map((cardInfo: ClientServicesCardType, index: number) => {

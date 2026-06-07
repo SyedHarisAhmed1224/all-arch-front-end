@@ -12,7 +12,7 @@ export const ClientServicesCardsInfo: ClientServicesCardType[] = [
         title: 'Protocol / Synopsis',
         info: 'Full research protocol with unlimited ethics committee objection handling.',
         type: 'Core'
-    },
+    },  
     {
         icon: '📊',
         title: 'Data Collection',

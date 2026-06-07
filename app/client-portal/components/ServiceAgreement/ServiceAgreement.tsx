@@ -1,8 +1,15 @@
 'use client'
 
+import { ClientServicesCardsInfo } from '@/app/constants/ClientPortalData'
 import { useEffect, useState } from 'react'
 
-const ServiceAgreement: React.FC = () => {
+interface ServiceAgreementProps {
+    onClose: () => void
+    selectedServices: number[]
+    onAccept: () => void
+}
+
+const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedServices, onAccept }) => {
     const [fullName, setFullName] = useState<string>('')
     const [signature, setSignature] = useState<string>('')
     const [agreedToServices, setAgreedToServices] = useState<boolean>(false)
@@ -27,14 +34,14 @@ const ServiceAgreement: React.FC = () => {
             agreedToServices
         )
     }, [fullName, signature, agreedToServices])
-    
+
     return (
         <div className='w-fit h-fit bg-white rounded-3xl overflow-hidden'>
             <div style={{ background: 'linear-gradient(135deg, var(--client-gradient-one), var(--client-gradient-two))' }} className='flex flex-col py-7 px-7 gap-3'>
                 <div className='w-full h-fit flex items-center justify-between'>
                     <span className='w-fit uppercase py-1 px-3 rounded-[20px] bg-[rgba(52,211,153,.15)] text-(--client-top-bar-text-color) border border-(--client-top-bar-text-border-color) font-semibold text-[0.8rem]'>📜 Service Agreement</span>
 
-                    <button className='cursor-pointer w-fit h-fit rounded-3xl bg-[rgba(255,255,255,.1)] text-white py-1 px-2 text-[0.8rem] flex justify-center items-center'>✕</button>
+                    <button onClick={onClose} className='cursor-pointer w-fit h-fit rounded-3xl bg-[rgba(255,255,255,.1)] text-white py-1 px-2 text-[0.8rem] flex justify-center items-center'>✕</button>
                 </div>
                 <div className='font-["lora"] text-[1.4rem] font-semibold text-white tracking-normal'>
                     ALLARCH Research Contract
@@ -46,10 +53,17 @@ const ServiceAgreement: React.FC = () => {
 
             <div className='w-full max-h-150 flex flex-col py-6 px-8 gap-5 overflow-auto'>
                 <div className='w-full h-fit bg-[#ECFDF5] border border-[#A7F3D0] py-3 px-4 rounded-2xl text-[0.9rem]'>
-                    <span className='font-semibold text-(--client-text-green-hover)'>Selected Services: </span>
-                    <span>Journal Submission, Article Writing, Statistical Analysis, Presentation</span>
+                    <span className='font-semibold text-(--client-text-green-hover)'>{selectedServices.length === 1 ? 'Selected Service: ' : 'Selected Services: '}</span>
+                    {
+                        selectedServices.map((id, index) => {
+                            return (
+                                index === (selectedServices.length - 1) ?
+                                    <span key={index}>{ClientServicesCardsInfo[id].title}</span> :
+                                    <span key={index}>{ClientServicesCardsInfo[id].title}, </span>
+                            )
+                        })
+                    }
                 </div>
-
                 <div className='w-full h-fit bg-[#F5F0EB] border border-gray-300 py-3 px-4 rounded-2xl text-[0.9rem] flex flex-col gap-2'>
                     <div className='font-semibold'>🗓️ Delivery Timeline</div>
                     <div className='text-black opacity-70'>Timelines may vary by <span className='font-bold'>±2 to 3 days</span> due to operational or ethical review processes. You will be notified via email and your project dashboard.</div>
@@ -104,7 +118,7 @@ const ServiceAgreement: React.FC = () => {
                         <label htmlFor="service_agreement" className='opacity-40'>I have read, understood, and agree to all terms and conditions in this contract.</label>
                     </div>
 
-                    <button className={`${agreeButton ? 'bg-[#059669] text-white' : 'bg-[#DDD8D0] text-[#6B6B6B] cursor-not-allowed'} transition duration-200 ease-in-out w-full h-fit font-semibold text-[1rem] py-3 rounded-3xl`}>Sign & Accept Agreement →</button>
+                    <button onClick={() => { if (agreeButton) onAccept() }} className={`${agreeButton ? 'bg-[#059669] text-white cursor-pointer' : 'bg-[#DDD8D0] text-[#6B6B6B] cursor-not-allowed'} transition duration-200 ease-in-out w-full h-fit font-semibold text-[1rem] py-3 rounded-3xl`}>Sign & Accept Agreement →</button>
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@ const ClientServicesCard: React.FC<ClientServicesCardProps> = ({ serviceID, card
     }
 
     return (
-        <div onClick={onCardClick} className={`${isActive ? 'bg-[#ECFDF5] border-[#059669] ' : 'bg-white border-gray-300 '} w-full h-full rounded-2xl border flex flex-col items-start py-3 px-3 cursor-pointer transition duration-200 ease-in-out hover:border-[#059669] hover:-translate-y-1`}>
+        <div onClick={onCardClick} className={`${isActive ? 'bg-[#ECFDF5] border-[#059669] ' : 'bg-white border-gray-300 '} w-full h-full rounded-2xl border flex flex-col items-start py-3 px-3 cursor-pointer transition duration-200 ease-in-out hover:border-[#059669] hover:-translate-y-1 hover:shadow-2xl`}>
             <div className='w-full h-fit flex items-center justify-end'>
                 <div className={`${isActive ? 'bg-[#059669] text-white border-[#059669]' : 'bg-white border-gray-300 '} w-5 h-5 rounded-2xl border-2 flex items-center justify-center text-[0.7rem]`}>✓</div>
             </div>
