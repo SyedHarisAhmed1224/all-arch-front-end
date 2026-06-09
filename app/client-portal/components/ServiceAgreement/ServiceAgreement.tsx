@@ -36,7 +36,7 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
     }, [fullName, signature, agreedToServices])
 
     return (
-        <div className='w-fit h-fit bg-white rounded-3xl overflow-hidden'>
+        <div className='w-full lg:w-[40vw] xl:w-[30vw] h-fit bg-white rounded-3xl overflow-x-hidden'>
             <div style={{ background: 'linear-gradient(135deg, var(--client-gradient-one), var(--client-gradient-two))' }} className='flex flex-col py-7 px-7 gap-3'>
                 <div className='w-full h-fit flex items-center justify-between'>
                     <span className='w-fit uppercase py-1 px-3 rounded-[20px] bg-[rgba(52,211,153,.15)] text-(--client-top-bar-text-color) border border-(--client-top-bar-text-border-color) font-semibold text-[0.8rem]'>📜 Service Agreement</span>
@@ -51,7 +51,7 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
                 </div>
             </div>
 
-            <div className='w-full max-h-150 flex flex-col py-6 px-8 gap-5 overflow-auto'>
+            <div className='w-full max-h-[60vh] lg:max-h-[70vh] xl:max-h-[70vh] flex flex-col py-6 px-8 gap-5 overflow-auto'>
                 <div className='w-full h-fit bg-[#ECFDF5] border border-[#A7F3D0] py-3 px-4 rounded-2xl text-[0.9rem]'>
                     <span className='font-semibold text-(--client-text-green-hover)'>{selectedServices.length === 1 ? 'Selected Service: ' : 'Selected Services: '}</span>
                     {
@@ -95,7 +95,7 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
 
                 <div className='w-full h-fit bg-[#111] border border-gray-300 py-4 px-4 rounded-2xl text-[0.9rem] flex flex-col gap-5'>
                     <div className='text-white opacity-40 font-semibold uppercase text-[0.7rem]'>Agreement & Signature</div>
-                    <div className='flex items-center justify-between text-white gap-3'>
+                    <div className='flex items-center justify-between text-white gap-3 flex-wrap xl:flex-nowrap'> 
                         <div className='flex flex-col w-full gap-2'>
                             <label htmlFor="full_name" className='uppercase text-[0.8rem] opacity-40 font-semibold'>Full Name</label>
                             <input onChange={handleNameChange} className='text-white bg-[rgba(255,255,255,.07)] rounded-xl py-2 px-3 border border-gray-500 outline-0 focus:border-(--input-text-green-hover)' type="text" placeholder='Your full name' />

@@ -5,6 +5,7 @@ import { ClientServicesCardsInfo } from '../../../constants/ClientPortalData'
 import { useState } from 'react'
 import ServiceAgreement from '../ServiceAgreement/ServiceAgreement'
 import ProjectOnboarding from '../ProjectOnboarding/ProjectOnboarding'
+import ModalWrapper from '../ModalWrapper/ModalWrapper'
 
 const ClientServicesSelection: React.FC = () => {
     const [selectedServices, setSelectedServices] = useState<number[]>([])
@@ -22,7 +23,7 @@ const ClientServicesSelection: React.FC = () => {
     const toggleContract = () => {
         setShowContract(!showContract)
     }
-    
+
     const toggleOnBoarding = () => {
         setShowOnBoarding(!showOnBoarding)
     }
@@ -36,41 +37,39 @@ const ClientServicesSelection: React.FC = () => {
         <div className='w-full h-full'>
 
             {
-                showContract &&
-                <div>
-                    <div className='fixed w-screen h-screen left-0 top-0 bg-black opacity-80 z-10'></div>
-
-                    <div className='fixed w-screen h-screen left-0 top-0 z-20 flex items-center justify-center'>
-                        <div className='w-150 h-fit'>
-                            <ServiceAgreement onAccept={acceptContract} selectedServices={selectedServices} onClose={toggleContract} />
-                        </div>
-                    </div>
-                </div>
+                showContract && (
+                    <ModalWrapper>
+                        <ServiceAgreement
+                            onAccept={acceptContract}
+                            selectedServices={selectedServices}
+                            onClose={toggleContract}
+                        />
+                    </ModalWrapper>
+                )
             }
 
             {
-                showOnBoarding &&
-                <div>
-                    <div className='fixed w-screen h-screen left-0 top-0 bg-black opacity-80 z-10'></div>
-
-                    <div className='fixed w-screen h-screen left-0 top-0 z-20 flex items-center justify-center'>
-                        <div className='w-150 h-fit'>
-                            <ProjectOnboarding onClose={toggleOnBoarding} />
-                        </div>
-                    </div>
-                </div>
+                showOnBoarding && (
+                    <ModalWrapper>
+                        <ProjectOnboarding
+                            onClose={toggleOnBoarding}
+                        />
+                    </ModalWrapper>
+                )
             }
 
-            <div className='flex flex-wrap items-center gap-5 w-full h-fit'>
-                {
-                    ClientServicesCardsInfo.map((cardInfo: ClientServicesCardType, index: number) => {
-                        return (
-                            <div className='w-65 h-55' key={index}>
-                                <ClientServicesCard onClick={modifyServices} serviceID={index} cardInfo={cardInfo} />
-                            </div>
-                        )
-                    })
-                }
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {ClientServicesCardsInfo.map(
+                    (cardInfo: ClientServicesCardType, index: number) => (
+                        <div key={index} className="w-full">
+                            <ClientServicesCard
+                                onClick={modifyServices}
+                                serviceID={index}
+                                cardInfo={cardInfo}
+                            />
+                        </div>
+                    )
+                )}
             </div>
 
             {

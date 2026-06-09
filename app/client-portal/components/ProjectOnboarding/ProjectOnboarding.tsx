@@ -22,7 +22,7 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose }) => {
     }
 
     return (
-        <div className='w-full h-fit bg-white rounded-3xl overflow-hidden'>
+        <div className='w-full h-fit bg-white rounded-3xl overflow-x-hidden'>
             <div style={{ background: 'linear-gradient(135deg, var(--client-gradient-one), var(--client-gradient-two))' }} className='flex flex-col py-7 px-7 gap-3'>
                 <div className='w-full h-fit flex items-center justify-between'>
                     <div className='flex gap-5'>
@@ -50,20 +50,22 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose }) => {
                 <span className='text-black opacity-60 font-semibold text-[0.75rem]'>Your Credentials</span>
             </div>
 
-            <div className={`${currentStep === 1 ? '' : 'hidden'}`}>
-                <PersonalInfo onContinue={incrementStep} />
-            </div>
+            <div className='w-full max-h-[60vh] flex flex-col py-6 gap-5 overflow-auto'>
+                <div className={`${currentStep === 1 ? '' : 'hidden'}`}>
+                    <PersonalInfo onContinue={incrementStep} />
+                </div>
 
-            <div className={`${currentStep === 2 ? '' : 'hidden'}`}>
-                <ResearchTopic onBack={decrementStep} onContinue={incrementStep} />
-            </div>
+                <div className={`${currentStep === 2 ? '' : 'hidden'}`}>
+                    <ResearchTopic onBack={decrementStep} onContinue={incrementStep} />
+                </div>
 
-            <div className={`${currentStep === 3 ? '' : 'hidden'}`}>
-                <SynopsisProtocol onBack={decrementStep} onContinue={incrementStep} />
-            </div>
+                <div className={`${currentStep === 3 ? '' : 'hidden'}`}>
+                    <SynopsisProtocol onBack={decrementStep} onContinue={incrementStep} />
+                </div>
 
-            <div className={`${currentStep === 4 ? '' : 'hidden'}`}>
-                <DataCollection onBack={decrementStep} onContinue={incrementStep} />
+                <div className={`${currentStep === 4 ? '' : 'hidden'}`}>
+                    <DataCollection onBack={decrementStep} onContinue={incrementStep} />
+                </div>
             </div>
         </div>
     )

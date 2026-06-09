@@ -69,9 +69,9 @@ const DataCollection: React.FC<DataCollectionProps> = ({ onContinue, onBack }) =
                 <AmountTotal />
             </div>
 
-            <div className='flex h-fit gap-3'>
-                <button onClick={onBack} className={`hover:border-red-600 hover:text-red-600 cursor-pointer border border-gray-300 w-1/5 mt-2 transition duration-200 ease-in-out h-fit font-semibold text-[1rem] py-2 rounded-3xl`}>← Back</button>
-                <button onClick={handleContinue} className={`${continueButton ? 'bg-[#059669] text-white cursor-pointer' : 'bg-[#DDD8D0] text-[#6B6B6B] cursor-not-allowed'} w-4/5 mt-2 transition duration-200 ease-in-out h-fit font-semibold text-[1rem] py-2 rounded-3xl`}>Continue →</button>
+            <div className='flex h-fit gap-3 flex-wrap lg:flex-nowrap'>
+                <button onClick={onBack} className={`hover:border-red-600 hover:text-red-600 cursor-pointer border border-gray-300 w-full lg:w-1/5 mt-2 transition duration-200 ease-in-out h-fit font-semibold text-[1rem] py-2 rounded-3xl`}>← Back</button>
+                <button onClick={handleContinue} className={`${continueButton ? 'bg-[#059669] text-white cursor-pointer' : 'bg-[#DDD8D0] text-[#6B6B6B] cursor-not-allowed'} w-full lg:w-4/5 mt-2 transition duration-200 ease-in-out h-fit font-semibold text-[1rem] py-2 rounded-3xl`}>Continue →</button>
             </div>
         </div>
     )
