@@ -36,7 +36,7 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
     }, [fullName, signature, agreedToServices])
 
     return (
-        <div className='w-full lg:w-[40vw] xl:w-[30vw] h-fit bg-white rounded-3xl overflow-x-hidden'>
+        <div className='w-full md:w-[70vw] lg:w-[30vw] xl:w-[30vw] h-fit bg-white rounded-3xl overflow-x-hidden'>
             <div style={{ background: 'linear-gradient(135deg, var(--client-gradient-one), var(--client-gradient-two))' }} className='flex flex-col py-7 px-7 gap-3'>
                 <div className='w-full h-fit flex items-center justify-between'>
                     <span className='w-fit uppercase py-1 px-3 rounded-[20px] bg-[rgba(52,211,153,.15)] text-(--client-top-bar-text-color) border border-(--client-top-bar-text-border-color) font-semibold text-[0.8rem]'>📜 Service Agreement</span>

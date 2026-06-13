@@ -1,9 +1,10 @@
 'use client'
 
+import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
 import { useEffect, useState } from 'react'
 
 interface PersonalInfoProps {
-    onContinue: () => void
+    onContinue: (serviceData: ProjectOnboardServiceData) => void
 }
 
 const PersonalInfo: React.FC<PersonalInfoProps> = ({ onContinue }) => {
@@ -13,15 +14,15 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ onContinue }) => {
     const [continueButton, setContinueButton] = useState<boolean>(false)
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFullName(e.target.value)
+        setFullName(e.target.value.trim())
     }
 
     const handleDegreeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setDegree(e.target.value)
+        setDegree(e.target.value.trim())
     }
 
     const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setField(e.target.value)
+        setField(e.target.value.trim())
     }
 
     useEffect(() => {
@@ -34,7 +35,14 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ onContinue }) => {
 
     const handleContinue = () => {
         if (continueButton) {
-            onContinue()
+            const data: ProjectOnboardServiceData = {
+                id: 1,
+                icon: '👤',
+                title: 'Scholar',
+                info: [fullName, degree, field].join(' . '),
+                status: 'confirm'
+            }
+            onContinue(data)
         }
     }
     

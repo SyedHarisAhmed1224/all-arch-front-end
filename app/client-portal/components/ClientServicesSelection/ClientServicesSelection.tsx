@@ -53,6 +53,7 @@ const ClientServicesSelection: React.FC = () => {
                     <ModalWrapper>
                         <ProjectOnboarding
                             onClose={toggleOnBoarding}
+                            selectedServices={selectedServices}
                         />
                     </ModalWrapper>
                 )

@@ -5,15 +5,22 @@ import PersonalInfo from './PersonalInfo'
 import ResearchTopic from './ResearchTopic'
 import SynopsisProtocol from './SynopsisProtocol'
 import DataCollection from './DataCollection'
+import WrittenOutput from './WrittenOutput'
+import Presentation from './Presentation'
+import ProjectSummary from './ProjectSummary'
+import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
 
 interface ProjectOnboardingProps {
     onClose: () => void
+    selectedServices: number[]
 }
 
-const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose }) => {
+const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose, selectedServices }) => {
+    const [projectData, setProjectData] = useState<ProjectOnboardServiceData[]>([])
     const [currentStep, setCurrentStep] = useState<number>(1)
 
-    const incrementStep = () => {
+    const incrementStep = (serviceData: ProjectOnboardServiceData) => {
+        setProjectData(prev => [...prev, serviceData])
         setCurrentStep(currentStep + 1)
     }
 
@@ -22,7 +29,7 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose }) => {
     }
 
     return (
-        <div className='w-full h-fit bg-white rounded-3xl overflow-x-hidden'>
+        <div className='w-full md:w-[60vw] lg:w-[30vw] xl:w-[30vw] h-fit bg-white rounded-3xl overflow-x-hidden'>
             <div style={{ background: 'linear-gradient(135deg, var(--client-gradient-one), var(--client-gradient-two))' }} className='flex flex-col py-7 px-7 gap-3'>
                 <div className='w-full h-fit flex items-center justify-between'>
                     <div className='flex gap-5'>
@@ -40,7 +47,7 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose }) => {
             <div className='w-full h-fit bg-[#f5f0eb] flex flex-col py-3 px-10 gap-2 border-b border-gray-300'>
                 <div className='flex gap-2'>
                     {
-                        [1, 2, 3, 4, 5, 6].map((step: number, index: number) => {
+                        selectedServices.map((step: number, index: number) => {
                             return (
                                 <div key={index} className={`${currentStep > step ? 'bg-[#059669]' : currentStep === step ? 'bg-red-600' : 'bg-gray-600 opacity-40'} w-1/6 h-1`}></div>
                             )
@@ -50,7 +57,7 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose }) => {
                 <span className='text-black opacity-60 font-semibold text-[0.75rem]'>Your Credentials</span>
             </div>
 
-            <div className='w-full max-h-[60vh] flex flex-col py-6 gap-5 overflow-auto'>
+            <div className='w-full max-h-[70vh] flex flex-col py-6 gap-5 overflow-auto'>
                 <div className={`${currentStep === 1 ? '' : 'hidden'}`}>
                     <PersonalInfo onContinue={incrementStep} />
                 </div>
@@ -65,6 +72,18 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose }) => {
 
                 <div className={`${currentStep === 4 ? '' : 'hidden'}`}>
                     <DataCollection onBack={decrementStep} onContinue={incrementStep} />
+                </div>
+
+                <div className={`${currentStep === 5 ? '' : 'hidden'}`}>
+                    <WrittenOutput onBack={decrementStep} onContinue={incrementStep} />
+                </div>
+
+                <div className={`${currentStep === 6 ? '' : 'hidden'}`}>
+                    <Presentation onBack={decrementStep} onContinue={incrementStep} />
+                </div>
+
+                <div className={`${currentStep === 7 ? '' : 'hidden'}`}>
+                    <ProjectSummary onBack={decrementStep} onContinue={() => {}} projectData={projectData} />
                 </div>
             </div>
         </div>
