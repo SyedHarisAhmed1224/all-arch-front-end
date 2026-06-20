@@ -20,7 +20,12 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose, selected
     const [currentStep, setCurrentStep] = useState<number>(1)
 
     const incrementStep = (serviceData: ProjectOnboardServiceData) => {
-        setProjectData(prev => [...prev, serviceData])
+        if (selectedServices[currentStep]) {
+            projectData[currentStep] = serviceData
+        }
+        else {
+            setProjectData(prev => [...prev, serviceData])
+        }
         setCurrentStep(currentStep + 1)
     }
 
