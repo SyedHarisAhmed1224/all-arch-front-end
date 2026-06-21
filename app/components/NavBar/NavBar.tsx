@@ -4,7 +4,11 @@ import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+    onAuthClick: () => void
+}
+
+const NavBar: React.FC<NavBarProps> = ({ onAuthClick }) => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
@@ -33,11 +37,11 @@ const NavBar: React.FC = () => {
                 </div>
 
                 <div className="hidden items-center gap-3 md:flex">
-                    <button className="rounded-full border border-neutral-300 px-6 py-2 text-sm font-medium text-neutral-800 transition hover:bg-neutral-100">
+                    <button onClick={onAuthClick} className="cursor-pointer rounded-full border border-neutral-300 px-6 py-2 text-sm font-medium text-neutral-800 transition hover:bg-neutral-100">
                         Log In
                     </button>
 
-                    <button className="rounded-full bg-red-600 px-6 py-2 text-sm font-bold text-white transition hover:bg-red-700">
+                    <button onClick={onAuthClick} className="cursor-pointer rounded-full bg-red-600 px-6 py-2 text-sm font-bold text-white transition hover:bg-red-700">
                         Sign Up Free
                     </button>
                 </div>

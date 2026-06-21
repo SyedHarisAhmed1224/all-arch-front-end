@@ -19,7 +19,11 @@ import PhaseCard from '@/app/components/PhaseCard/PhaseCard'
 import ResearchServiceCard, { ResearchServiceCardInfo } from '@/app/components/ResearchServiceCard/ResearchServiceCard'
 import InterRewardCards, { InterRewardCardsInfo } from '@/app/components/InternRewardCards/InternRewardCards'
 
-const LandingPageContent: React.FC = () => {
+interface LandingPageContentProps {
+    onAuthClick: () => void
+}
+
+const LandingPageContent: React.FC<LandingPageContentProps> = ({ onAuthClick }) => {
     return (
         <>
             <div className='absolute text-red-600 opacity-5 font-bold text-[7rem] sm:text-[10rem] left-17 sm:left-134 top-118 sm:top-94 -z-1'>ARCH</div>
@@ -91,11 +95,11 @@ const LandingPageContent: React.FC = () => {
 
                 <div className='flex gap-6 mt-6 flex-wrap'>
                     <div className='w-full max-w-95 h-fit md:h-120 flex'>
-                        <PortalTypeInfoCards type='researcher' title='Researcher Portal' subText={researcherSubText} info={researcherInfo} icon='🎓' />
+                        <PortalTypeInfoCards onAuthClick={onAuthClick} type='researcher' title='Researcher Portal' subText={researcherSubText} info={researcherInfo} icon='🎓' />
                     </div>
 
                     <div className='w-full max-w-95 h-fit md:h-120 flex'>
-                        <PortalTypeInfoCards type='client' title='Client Portal' subText={clientSubText} info={clientInfo} icon='💼' />
+                        <PortalTypeInfoCards onAuthClick={onAuthClick} type='client' title='Client Portal' subText={clientSubText} info={clientInfo} icon='💼' />
                     </div>
                 </div>
             </section>

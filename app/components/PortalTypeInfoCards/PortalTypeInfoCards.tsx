@@ -6,9 +6,10 @@ interface PortalTypeInfoCardsProps {
     subText: string
     info: string[]
     icon: string
+    onAuthClick: () => void
 }
 
-const PortalTypeInfoCards: React.FC<PortalTypeInfoCardsProps> = ({ type, title, subText, info, icon }) => {
+const PortalTypeInfoCards: React.FC<PortalTypeInfoCardsProps> = ({ onAuthClick, type, title, subText, info, icon }) => {
     return (
         <div
             style={{
@@ -34,7 +35,7 @@ const PortalTypeInfoCards: React.FC<PortalTypeInfoCardsProps> = ({ type, title, 
                 })}
             </div>
 
-            <button className={`${type === 'researcher' ? 'bg-(--custom-text-red) hover:bg-red-800 text-white' : 'bg-green-600 hover:bg-green-800'} rounded-[20px] py-1.5 px-1 font-semibold text-[0.9rem] w-45 mt-3 flex items-center justify-center cursor-pointer transition duration-200 ease-in-out`}>
+            <button onClick={onAuthClick} className={`${type === 'researcher' ? 'bg-(--custom-text-red) hover:bg-red-800 text-white' : 'bg-green-600 hover:bg-green-800'} rounded-[20px] py-1.5 px-1 font-semibold text-[0.9rem] w-45 mt-3 flex items-center justify-center cursor-pointer transition duration-200 ease-in-out`}>
                 { type === 'researcher' ? 'Join as Researcher →' : 'Hire a Researcher →' }
             </button>
         </div>
