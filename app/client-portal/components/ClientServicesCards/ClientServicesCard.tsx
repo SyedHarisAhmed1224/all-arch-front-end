@@ -3,6 +3,7 @@
 import { useState } from 'react'
 
 export interface ClientServicesCardType {
+    serviceId: number
     icon: string
     title: string
     info: string

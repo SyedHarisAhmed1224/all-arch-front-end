@@ -1,16 +1,40 @@
 'use client'
 
 import ClientServicesCard, { ClientServicesCardType } from '../ClientServicesCards/ClientServicesCard'
-import { ClientServicesCardsInfo } from '../../../constants/ClientPortalData'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ServiceAgreement from '../ServiceAgreement/ServiceAgreement'
 import ProjectOnboarding from '../ProjectOnboarding/ProjectOnboarding'
 import ModalWrapper from '../ModalWrapper/ModalWrapper'
+import { ClientService } from '@/app/services/Client/ClientService'
+import { Conversions } from '@/app/util/Conversions'
+import toast from 'react-hot-toast'
 
 const ClientServicesSelection: React.FC = () => {
     const [selectedServices, setSelectedServices] = useState<number[]>([])
     const [showContract, setShowContract] = useState<boolean>(false)
     const [showOnBoarding, setShowOnBoarding] = useState<boolean>(false)
+
+    const [clientServicesCardsInfo, setClientServicesCardsInfo] = useState<ClientServicesCardType[]>()
+
+    useEffect(() => {
+        const getClientServicesCardsInfo = async () => {
+            const res = await ClientService.getServices()
+
+            if (res && res.responseCode === 200) {
+                setClientServicesCardsInfo(
+                    res.body.map((item: ClientServicesCardType) => ({
+                        ...item,
+                        icon: Conversions.unicodeToEmoji(item.icon),
+                    }))
+                )
+            }
+            else {
+                toast.error(res?.body)
+            }
+        }
+
+        getClientServicesCardsInfo()
+    }, [])
 
     const modifyServices = (serviceID: number) => {
         setSelectedServices(prev =>
@@ -37,12 +61,13 @@ const ClientServicesSelection: React.FC = () => {
         <div className='w-full h-full'>
 
             {
-                showContract && (
+                showContract && clientServicesCardsInfo && (
                     <ModalWrapper>
                         <ServiceAgreement
                             onAccept={acceptContract}
                             selectedServices={selectedServices}
                             onClose={toggleContract}
+                            clientServicesCardsInfo={clientServicesCardsInfo}
                         />
                     </ModalWrapper>
                 )
@@ -59,13 +84,13 @@ const ClientServicesSelection: React.FC = () => {
                 )
             }
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {ClientServicesCardsInfo.map(
-                    (cardInfo: ClientServicesCardType, index: number) => (
-                        <div key={index} className="w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {clientServicesCardsInfo && clientServicesCardsInfo.map(
+                    (cardInfo: ClientServicesCardType) => (
+                        <div key={cardInfo.serviceId} className="w-full">
                             <ClientServicesCard
                                 onClick={modifyServices}
-                                serviceID={index}
+                                serviceID={cardInfo.serviceId}
                                 cardInfo={cardInfo}
                             />
                         </div>

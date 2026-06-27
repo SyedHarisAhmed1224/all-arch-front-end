@@ -1,15 +1,16 @@
 'use client'
 
-import { ClientServicesCardsInfo } from '@/app/constants/ClientPortalData'
 import { useEffect, useState } from 'react'
+import { ClientServicesCardType } from '../ClientServicesCards/ClientServicesCard'
 
 interface ServiceAgreementProps {
     onClose: () => void
     selectedServices: number[]
     onAccept: () => void
+    clientServicesCardsInfo: ClientServicesCardType[] 
 }
 
-const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedServices, onAccept }) => {
+const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedServices, onAccept, clientServicesCardsInfo }) => {
     const [fullName, setFullName] = useState<string>('')
     const [signature, setSignature] = useState<string>('')
     const [agreedToServices, setAgreedToServices] = useState<boolean>(false)
@@ -55,11 +56,11 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
                 <div className='w-full h-fit bg-[#ECFDF5] border border-[#A7F3D0] py-3 px-4 rounded-2xl text-[0.9rem]'>
                     <span className='font-semibold text-(--client-text-green-hover)'>{selectedServices.length === 1 ? 'Selected Service: ' : 'Selected Services: '}</span>
                     {
-                        selectedServices.map((id, index) => {
+                        selectedServices.map((_id, index) => {
                             return (
                                 index === (selectedServices.length - 1) ?
-                                    <span key={index}>{ClientServicesCardsInfo[id].title}</span> :
-                                    <span key={index}>{ClientServicesCardsInfo[id].title}, </span>
+                                    <span key={index}>{clientServicesCardsInfo[index].title}</span> :
+                                    <span key={index}>{clientServicesCardsInfo[index].title}, </span>
                             )
                         })
                     }

@@ -2,33 +2,29 @@
 
 import { useState } from "react"
 
-interface FieldSelectProps {
-    label?: string
-    value?: string
-    error?: string
-    onChange?: (value: string) => void
+export interface FieldData {
+    key: any
+    value: string
 }
 
-const fields = [
-    "Public Health & Epidemiology",
-    "Clinical Research",
-    "Social Sciences",
-    "Business & Economics",
-    "Environmental Science",
-    "Other",
-]
+interface FieldSelectProps {
+    label?: string
+    error?: string
+    fields?: FieldData[]
+    onChange?: (value: number) => void
+}
 
 const FieldSelect: React.FC<FieldSelectProps> = ({
-    label = "Field of Interest",
-    value = "",
+    label,
     error,
+    fields,
     onChange,
 }) => {
-    const [selected, setSelected] = useState(value)
+    const [selected, setSelected] = useState('')
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelected(e.target.value)
-        onChange?.(e.target.value)
+        onChange?.(parseInt(e.target.value))
     }
 
     return (
@@ -38,23 +34,26 @@ const FieldSelect: React.FC<FieldSelectProps> = ({
             </label>
 
             <div className="relative cursor-pointer">
-                <select
-                    value={selected}
-                    onChange={handleChange}
-                    className={`
+                {
+                    fields &&
+                    <select
+                        value={selected}
+                        onChange={handleChange}
+                        className={`
             w-full appearance-none rounded-xl border bg-white px-5 py-2
             text-gray-700 outline-none transition focus:border-red-500`}
-                >
-                    <option value="" disabled>
-                        Select your field...
-                    </option>
-
-                    {fields.map((field) => (
-                        <option key={field} value={field}>
-                            {field}
+                    >
+                        <option value="" disabled>
+                            Select your field...
                         </option>
-                    ))}
-                </select>
+
+                        {fields.map((field: FieldData) => (
+                            <option key={field.key} value={field.key}>
+                                {field.value}
+                            </option>
+                        ))}
+                    </select>
+                }
 
                 <svg
                     className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500"

@@ -20,7 +20,7 @@ import ResearchServiceCard, { ResearchServiceCardInfo } from '@/app/components/R
 import InterRewardCards, { InterRewardCardsInfo } from '@/app/components/InternRewardCards/InternRewardCards'
 
 interface LandingPageContentProps {
-    onAuthClick: () => void
+    onAuthClick: (authType: number) => void
 }
 
 const LandingPageContent: React.FC<LandingPageContentProps> = ({ onAuthClick }) => {
@@ -95,11 +95,11 @@ const LandingPageContent: React.FC<LandingPageContentProps> = ({ onAuthClick }) 
 
                 <div className='flex gap-6 mt-6 flex-wrap'>
                     <div className='w-full max-w-95 h-fit md:h-120 flex'>
-                        <PortalTypeInfoCards onAuthClick={onAuthClick} type='researcher' title='Researcher Portal' subText={researcherSubText} info={researcherInfo} icon='🎓' />
+                        <PortalTypeInfoCards onAuthClick={() => { onAuthClick(0) }} type='researcher' title='Researcher Portal' subText={researcherSubText} info={researcherInfo} icon='🎓' />
                     </div>
 
                     <div className='w-full max-w-95 h-fit md:h-120 flex'>
-                        <PortalTypeInfoCards onAuthClick={onAuthClick} type='client' title='Client Portal' subText={clientSubText} info={clientInfo} icon='💼' />
+                        <PortalTypeInfoCards onAuthClick={() => { onAuthClick(0) }} type='client' title='Client Portal' subText={clientSubText} info={clientInfo} icon='💼' />
                     </div>
                 </div>
             </section>

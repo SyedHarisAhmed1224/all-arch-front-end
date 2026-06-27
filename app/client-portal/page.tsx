@@ -1,6 +1,6 @@
 import Header from './components/Header/Header'
 import Banner from './components/Banner/Banner'
-import DashboardContent from './components/DashboardContent/DashboardContent'
+import ClientDashboardContent from './components/ClientDashboardContent/ClientDashboardContent'
 
 const ClientPortal: React.FC = () => {
     return (
@@ -12,7 +12,7 @@ const ClientPortal: React.FC = () => {
                 <Banner />
             </div>
             <div className='w-full h-fit'>
-                <DashboardContent />
+                <ClientDashboardContent />
             </div>
         </>
     )

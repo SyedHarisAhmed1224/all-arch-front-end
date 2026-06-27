@@ -4,6 +4,7 @@ import { useState } from 'react'
 import InputField from '../InputField/InputField'
 import { AuthService } from '@/app/services/Auth/AuthService'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 interface LoginContainerProps {
     onSubTextClick: () => void
@@ -12,6 +13,7 @@ interface LoginContainerProps {
 const LoginContainer: React.FC<LoginContainerProps> = ({ onSubTextClick }) => {
     const [emailAddress, setEmailAddres] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const router = useRouter()
 
     const handleEmailChange = (val: string) => {
         if (!val || val === '') {
@@ -29,24 +31,39 @@ const LoginContainer: React.FC<LoginContainerProps> = ({ onSubTextClick }) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        
+
         const credentials: LoginCredentials = {
             emailAddress: emailAddress,
             password: password
         }
 
-        try {
-            const res: BackendResponse = await AuthService.login(credentials)
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                const res: BackendResponse | null = await AuthService.login(credentials)
 
-            if (res.responseCode === 200) {
-                toast.success('Success')
-            } else {
-                toast.error(res.body || 'Login failed')
+                if (!res) {
+                    toast.error('Server Error')
+                    return
+                }
+
+                if (res.responseCode === 200) {
+                    resolve('Success')
+                    router.push('/client-portal')
+                } else {
+                    reject('Error')
+                }
+            } catch (error) {
+                toast.error('Something went wrong. Please try again.')
+                console.error(error)
             }
-        } catch (error) {
-            toast.error('Something went wrong. Please try again.')
-            console.error(error)
-        }
+        })
+
+        toast.promise(promise,
+            {
+                loading: 'Please wait...',
+                error: 'Inavlid Login'
+            }
+        )
     }
 
     return (

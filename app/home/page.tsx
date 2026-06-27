@@ -11,8 +11,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 const Home: React.FC = () => {
 
     const [showAuth, setShowAuth] = useState<boolean>(false)
+    const [authType, setAuthType] = useState<number>(0)
 
-    const toggleAuth = () => {
+    const toggleAuth = (authType?: number) => {
+        if (authType === 0 || authType === 1) {
+            setAuthType(authType)
+        }
+
         setShowAuth(!showAuth)
     }
 
@@ -29,7 +34,7 @@ const Home: React.FC = () => {
                             className="fixed inset-0 z-50"
                         >
                             <ModalWrapper>
-                                <AuthContainer authType='login' toggleAuth={toggleAuth} />
+                                <AuthContainer authType={authType} toggleAuth={toggleAuth} />
                             </ModalWrapper>
                         </motion.div>
                     )}
