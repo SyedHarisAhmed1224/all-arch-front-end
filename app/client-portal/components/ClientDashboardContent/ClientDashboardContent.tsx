@@ -1,6 +1,11 @@
+import { ClientServicesCardType } from '../ClientServicesCards/ClientServicesCard'
 import ClientServicesSelection from '../ClientServicesSelection/ClientServicesSelection'
 
-const ClientDashboardContent: React.FC = () => {
+interface ClientDashboardContentProps {
+    clientServicesCardsInfo: ClientServicesCardType[]
+}
+
+const ClientDashboardContent: React.FC<ClientDashboardContentProps> = ({ clientServicesCardsInfo }) => {
     return (
         <div className='w-full h-full py-10 px-4 md:px-10 lg:px-20 xl:px-30 flex flex-col gap-5'>
             <span className='w-fit uppercase py-1 px-3 rounded-[20px] bg-red-100 text-red-900 font-semibold text-[0.8rem]'>Our Services</span>
@@ -10,7 +15,7 @@ const ClientDashboardContent: React.FC = () => {
             <p className='text-black opacity-70 text-[0.95rem]'>Select all that apply to your project. No payment details yet — just tell us what you need.</p>
 
             <div className='w-full h-fit'>
-                <ClientServicesSelection />
+                <ClientServicesSelection clientServicesCardsInfo={clientServicesCardsInfo} />
             </div>
         </div>
     )

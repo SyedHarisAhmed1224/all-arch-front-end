@@ -5,36 +5,35 @@ import { useEffect, useState } from 'react'
 import ServiceAgreement from '../ServiceAgreement/ServiceAgreement'
 import ProjectOnboarding from '../ProjectOnboarding/ProjectOnboarding'
 import ModalWrapper from '../ModalWrapper/ModalWrapper'
-import { ClientService } from '@/app/services/Client/ClientService'
-import { Conversions } from '@/app/util/Conversions'
+import { useProjectStore } from '@/app/stores/useProjectStore'
+import { useContractStore } from '@/app/stores/useContractStore'
 import toast from 'react-hot-toast'
+import { ClientService } from '@/app/services/Client/ClientService'
+import { useRouter } from 'next/navigation'
 
-const ClientServicesSelection: React.FC = () => {
+interface ClientServicesSelectionProps {
+    clientServicesCardsInfo: ClientServicesCardType[]
+}
+
+const ClientServicesSelection: React.FC<ClientServicesSelectionProps> = ({ clientServicesCardsInfo }) => {
+
     const [selectedServices, setSelectedServices] = useState<number[]>([])
     const [showContract, setShowContract] = useState<boolean>(false)
     const [showOnBoarding, setShowOnBoarding] = useState<boolean>(false)
 
-    const [clientServicesCardsInfo, setClientServicesCardsInfo] = useState<ClientServicesCardType[]>()
+    const { updateContractBody, resetContractBody } = useContractStore()
+    const contractBody = useContractStore(state => state.contractBody)
+    const { resetSelections } = useProjectStore()
+
+    const router = useRouter()
+
+    const initializePrices = useProjectStore(
+        (state) => state.initializePrices
+    )
 
     useEffect(() => {
-        const getClientServicesCardsInfo = async () => {
-            const res = await ClientService.getServices()
-
-            if (res && res.responseCode === 200) {
-                setClientServicesCardsInfo(
-                    res.body.map((item: ClientServicesCardType) => ({
-                        ...item,
-                        icon: Conversions.unicodeToEmoji(item.icon),
-                    }))
-                )
-            }
-            else {
-                toast.error(res?.body)
-            }
-        }
-
-        getClientServicesCardsInfo()
-    }, [])
+        initializePrices(clientServicesCardsInfo)
+    }, [clientServicesCardsInfo, initializePrices])
 
     const modifyServices = (serviceID: number) => {
         setSelectedServices(prev =>
@@ -52,9 +51,42 @@ const ClientServicesSelection: React.FC = () => {
         setShowOnBoarding(!showOnBoarding)
     }
 
-    const acceptContract = () => {
+    const acceptContract = (researchSupportAgreement: boolean) => {
         setShowContract(!showContract)
         setShowOnBoarding(!showOnBoarding)
+
+        resetContractBody()
+
+        updateContractBody({
+            researchSupportAgreement: researchSupportAgreement ? 1 : 0
+        })
+
+        resetSelections()
+    }
+
+    const onComplete = async () => {
+        try {
+            const res: BackendResponse | null = await ClientService.lodgeNewContractRequest(contractBody)
+
+            if (!res) {
+                toast.error('Server Error')
+                return
+            }
+
+            if (res.responseCode === 200) {
+                const contractId: number = res.body
+                toast.success('Success')
+                setTimeout(() => {
+                    router.push(`/client-portal/view-contracts/${contractId}`)
+                }, 2000)
+            }
+            else {
+                toast.error(res.body)
+            }
+        } catch (error) {
+            toast.error('Something went wrong. Please try again.')
+            console.error(error)
+        }
     }
 
     return (
@@ -77,6 +109,7 @@ const ClientServicesSelection: React.FC = () => {
                 showOnBoarding && (
                     <ModalWrapper>
                         <ProjectOnboarding
+                            onComplete={onComplete}
                             onClose={toggleOnBoarding}
                             selectedServices={selectedServices}
                         />
@@ -84,10 +117,10 @@ const ClientServicesSelection: React.FC = () => {
                 )
             }
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
                 {clientServicesCardsInfo && clientServicesCardsInfo.map(
                     (cardInfo: ClientServicesCardType) => (
-                        <div key={cardInfo.serviceId} className="w-full">
+                        <div key={cardInfo.serviceId} className='w-full'>
                             <ClientServicesCard
                                 onClick={modifyServices}
                                 serviceID={cardInfo.serviceId}

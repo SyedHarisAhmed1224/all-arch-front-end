@@ -11,26 +11,29 @@ import ProjectSummary from './ProjectSummary'
 import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
 
 interface ProjectOnboardingProps {
+    onComplete: () => void
     onClose: () => void
     selectedServices: number[]
 }
 
-const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose, selectedServices }) => {
+const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onComplete, onClose, selectedServices }) => {
+    const flow = [0, ...selectedServices, 6]
+
+    const [currentStep, setCurrentStep] = useState(0)
     const [projectData, setProjectData] = useState<ProjectOnboardServiceData[]>([])
-    const [currentStep, setCurrentStep] = useState<number>(1)
 
     const incrementStep = (serviceData: ProjectOnboardServiceData) => {
-        if (selectedServices[currentStep]) {
-            projectData[currentStep] = serviceData
-        }
-        else {
-            setProjectData(prev => [...prev, serviceData])
-        }
-        setCurrentStep(currentStep + 1)
+        setProjectData(prev => {
+            const updated = [...prev]
+            updated[currentStep] = serviceData
+            return updated
+        })
+
+        setCurrentStep(prev => prev + 1)
     }
 
     const decrementStep = () => {
-        setCurrentStep(currentStep - 1)
+        setCurrentStep(prev => Math.max(0, prev - 1))
     }
 
     return (
@@ -41,7 +44,7 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose, selected
                         <div className='py-1.5 px-2 rounded-3xl bg-[rgba(52,211,153,.15)] text-[1.6rem]'>⚙️</div>
                         <div className='flex flex-col'>
                             <span className='font-["lora"] text-white text-[1.2rem] font-semibold'>Project Onboarding</span>
-                            <span className='text-white text-[0.8rem] opacity-50'>Step 1 of 6</span>
+                            <span className='text-white text-[0.8rem] opacity-50'>Step 1 of {flow.length}</span>
                         </div>
                     </div>
 
@@ -52,43 +55,49 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onClose, selected
             <div className='w-full h-fit bg-[#f5f0eb] flex flex-col py-3 px-10 gap-2 border-b border-gray-300'>
                 <div className='flex gap-2'>
                     {
-                        selectedServices.map((step: number, index: number) => {
-                            return (
-                                <div key={index} className={`${currentStep > step ? 'bg-[#059669]' : currentStep === step ? 'bg-red-600' : 'bg-gray-600 opacity-40'} w-1/6 h-1`}></div>
-                            )
-                        })
+                        flow.map((_, index) => (
+                            <div
+                                key={index}
+                                className={`${currentStep > index
+                                    ? 'bg-[#059669]'
+                                    : currentStep === index
+                                        ? 'bg-red-600'
+                                        : 'bg-gray-600 opacity-40'
+                                    } w-full h-1`}
+                            />
+                        ))
                     }
                 </div>
                 <span className='text-black opacity-60 font-semibold text-[0.75rem]'>Your Credentials</span>
             </div>
 
             <div className='w-full max-h-[70vh] flex flex-col py-6 gap-5 overflow-auto'>
-                <div className={`${currentStep === 1 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 0 ? '' : 'hidden'}`}>
                     <PersonalInfo onContinue={incrementStep} />
                 </div>
 
-                <div className={`${currentStep === 2 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 1 ? '' : 'hidden'}`}>
                     <ResearchTopic onBack={decrementStep} onContinue={incrementStep} />
                 </div>
 
-                <div className={`${currentStep === 3 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 2 ? '' : 'hidden'}`}>
                     <SynopsisProtocol onBack={decrementStep} onContinue={incrementStep} />
                 </div>
 
-                <div className={`${currentStep === 4 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 3 ? '' : 'hidden'}`}>
                     <DataCollection onBack={decrementStep} onContinue={incrementStep} />
                 </div>
 
-                <div className={`${currentStep === 5 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 4 ? '' : 'hidden'}`}>
                     <WrittenOutput onBack={decrementStep} onContinue={incrementStep} />
                 </div>
 
-                <div className={`${currentStep === 6 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 5 ? '' : 'hidden'}`}>
                     <Presentation onBack={decrementStep} onContinue={incrementStep} />
                 </div>
 
-                <div className={`${currentStep === 7 ? '' : 'hidden'}`}>
-                    <ProjectSummary onBack={decrementStep} onContinue={() => {}} projectData={projectData} />
+                <div className={`${flow[currentStep] === 6 ? '' : 'hidden'}`}>
+                    <ProjectSummary onBack={decrementStep} onContinue={onComplete} projectData={projectData} />
                 </div>
             </div>
         </div>

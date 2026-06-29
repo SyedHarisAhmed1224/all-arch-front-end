@@ -1,4 +1,6 @@
 import axios from 'axios'
+import https from 'https'
+import { redirect } from 'next/navigation'
 
 const apiClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://192.168.100.7:8080/allarch',
@@ -6,13 +8,17 @@ const apiClient = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
+
+    httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+    }),
 })
 
 apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 403) {
-            window.location.href = '/home'
+            redirect('/home')
         }
 
         return Promise.reject(error)

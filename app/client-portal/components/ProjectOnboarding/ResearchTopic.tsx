@@ -3,6 +3,7 @@ import AmountTotal from './AmountTotal'
 import { useProjectStore } from '@/app/stores/useProjectStore'
 import ProjectOnboardingButtons from '../ProjectOnboardingButtons/ProjectOnboardingButtons'
 import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
+import { useContractStore } from '@/app/stores/useContractStore'
 
 interface ResearchTopicProps {
     onContinue: (serviceData: ProjectOnboardServiceData) => void
@@ -15,11 +16,13 @@ const ResearchTopic: React.FC<ResearchTopicProps> = ({ onContinue, onBack }) => 
     const [researchNiche, setResearchNiche] = useState<string>('')
     const [continueButton, setContinueButton] = useState<boolean>(false)
 
+    const { updateContractBody } = useContractStore()
+
     const { setService } = useProjectStore()
 
     const handleHasResearchTopic = (topicID: number) => {
         setHasResearchTopic(topicID)
-        setService('topicFormulation', topicID === 2)
+        setService(1, topicID === 2)
     }
 
     useEffect(() => {
@@ -43,6 +46,12 @@ const ResearchTopic: React.FC<ResearchTopicProps> = ({ onContinue, onBack }) => 
                 info: hasResearchTopic === 2 ? `Niche: ${researchNiche} . Topics in 2 days` : researchTitle,
                 status: hasResearchTopic === 1 ? 'provided' : 'applied'
             }
+
+            updateContractBody({
+                hasTopic: hasResearchTopic === 2 ? 0 : 1,
+                researchDescription: hasResearchTopic === 2 ? researchNiche : researchTitle
+            })
+
             onContinue(data)
         }
     }

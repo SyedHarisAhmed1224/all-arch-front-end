@@ -1,5 +1,6 @@
 'use client'
 
+import { useContractStore } from '@/app/stores/useContractStore'
 import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
 import { useEffect, useState } from 'react'
 
@@ -12,6 +13,8 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ onContinue }) => {
     const [degree, setDegree] = useState<string>('')
     const [field, setField] = useState<string>('')
     const [continueButton, setContinueButton] = useState<boolean>(false)
+
+    const { updateContractBody } = useContractStore()
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFullName(e.target.value.trim())
@@ -42,10 +45,17 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ onContinue }) => {
                 info: [fullName, degree, field].join(' . '),
                 status: 'confirm'
             }
+
+            updateContractBody({
+                personalInfoFullName: fullName,
+                qualificationID: 1,
+                fieldDescription: field
+            })
+
             onContinue(data)
         }
     }
-    
+
     return (
         <div className='w-full h-fit flex flex-col gap-5 px-7 py-5'>
             <div className='flex flex-col gap-1 text-(--custom-text-color)'>

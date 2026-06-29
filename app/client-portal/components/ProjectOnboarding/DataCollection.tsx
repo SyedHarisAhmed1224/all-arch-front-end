@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import AmountTotal from './AmountTotal'
 import ProjectOnboardingButtons from '../ProjectOnboardingButtons/ProjectOnboardingButtons'
 import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
+import { useContractStore } from '@/app/stores/useContractStore'
 
 interface DataCollectionProps {
     onContinue: (serviceData: ProjectOnboardServiceData) => void
@@ -16,9 +17,11 @@ const DataCollection: React.FC<DataCollectionProps> = ({ onContinue, onBack }) =
 
     const { setService } = useProjectStore()
 
+    const { updateContractBody } = useContractStore()
+
     const handleHasDataCollection = (topicID: number) => {
         setHasDataCollection(topicID)
-        setService('dataCollection', topicID === 2)
+        setService(3, topicID === 2)
     }
 
     useEffect(() => {
@@ -38,6 +41,12 @@ const DataCollection: React.FC<DataCollectionProps> = ({ onContinue, onBack }) =
                 info: dataFile != '' && hasDataCollection === 1 ? dataFile : 'ALLARCH collects',
                 status: dataFile != '' && hasDataCollection === 1 ? 'provided' : 'applied'
             }
+
+            updateContractBody({
+                hasData: hasDataCollection === 1 ? 1 : 0,
+                dataFile: "JVBERi0xLjQKMSAwIG9iaid0ZXN0IGNvbnRlbnQnIGVuZG9iag=="
+            })
+
             onContinue(data)
         }
     }

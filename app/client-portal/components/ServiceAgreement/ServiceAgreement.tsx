@@ -6,7 +6,7 @@ import { ClientServicesCardType } from '../ClientServicesCards/ClientServicesCar
 interface ServiceAgreementProps {
     onClose: () => void
     selectedServices: number[]
-    onAccept: () => void
+    onAccept: (researchSupportAgreement: boolean) => void
     clientServicesCardsInfo: ClientServicesCardType[] 
 }
 
@@ -15,6 +15,7 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
     const [signature, setSignature] = useState<string>('')
     const [agreedToServices, setAgreedToServices] = useState<boolean>(false)
     const [agreeButton, setAgreeButton] = useState<boolean>(false)
+    const [researchSupportAgreement, setResearchSupportAgreement] = useState<boolean>(false)
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFullName(e.target.value)
@@ -26,6 +27,10 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
 
     const handleAgreedToServicesChange = () => {
         setAgreedToServices(!agreedToServices)
+    }
+    
+    const handleResearchSupportAgreement = () => {
+        setResearchSupportAgreement(!researchSupportAgreement)
     }
 
     useEffect(() => {
@@ -87,7 +92,7 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
 
                 <div className='w-full h-fit bg-[#F5F0EB] border border-gray-300 py-3 px-4 rounded-2xl text-[0.9rem] flex gap-2'>
                     <div>
-                        <input type="checkbox" />
+                        <input onChange={handleResearchSupportAgreement} type="checkbox" />
                     </div>
                     <div className='text-black opacity-70'>
                         <label htmlFor="optional_service_agreement">I agree to acknowledge ALLARCH Academy as the research support provider in any published work. (Optional)</label>
@@ -119,7 +124,7 @@ const ServiceAgreement: React.FC<ServiceAgreementProps> = ({ onClose, selectedSe
                         <label htmlFor="service_agreement" className='opacity-40'>I have read, understood, and agree to all terms and conditions in this contract.</label>
                     </div>
 
-                    <button onClick={() => { if (agreeButton) onAccept() }} className={`${agreeButton ? 'bg-[#059669] text-white cursor-pointer' : 'bg-[#DDD8D0] text-[#6B6B6B] cursor-not-allowed'} transition duration-200 ease-in-out w-full h-fit font-semibold text-[1rem] py-3 rounded-3xl`}>Sign & Accept Agreement →</button>
+                    <button onClick={() => { if (agreeButton) onAccept(researchSupportAgreement) }} className={`${agreeButton ? 'bg-[#059669] text-white cursor-pointer' : 'bg-[#DDD8D0] text-[#6B6B6B] cursor-not-allowed'} transition duration-200 ease-in-out w-full h-fit font-semibold text-[1rem] py-3 rounded-3xl`}>Sign & Accept Agreement →</button>
                 </div>
             </div>
         </div>

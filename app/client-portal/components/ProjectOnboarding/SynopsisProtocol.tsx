@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import AmountTotal from './AmountTotal'
 import ProjectOnboardingButtons from '../ProjectOnboardingButtons/ProjectOnboardingButtons'
 import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
+import { useContractStore } from '@/app/stores/useContractStore'
 
 interface SynopsisProtocolProps {
     onContinue: (serviceData: ProjectOnboardServiceData) => void
@@ -16,9 +17,11 @@ const SynopsisProtocol: React.FC<SynopsisProtocolProps> = ({ onContinue, onBack 
 
     const { setService } = useProjectStore()
 
+    const { updateContractBody } = useContractStore()
+
     const handleHasSynopsisProtocol = (topicID: number) => {
         setHasSynopsisProtocol(topicID)
-        setService('protocolWriting', topicID === 2)
+        setService(2, topicID === 2)
     }
 
     useEffect(() => {
@@ -38,6 +41,12 @@ const SynopsisProtocol: React.FC<SynopsisProtocolProps> = ({ onContinue, onBack 
                 info: synopsisFile != '' && hasSynopsisProtocol === 1 ? 'File uploaded' : 'ALLARCH will write',
                 status: synopsisFile != '' && hasSynopsisProtocol === 1 ? 'provided' : 'applied'
             }
+
+            updateContractBody({
+                hasProtocol: hasSynopsisProtocol === 1 ? 1 : 0,
+                protocolFile: "JVBERi0xLjQKMSAwIG9iaid0ZXN0IGNvbnRlbnQnIGVuZG9iag=="
+            })
+
             onContinue(data)
         }
     }

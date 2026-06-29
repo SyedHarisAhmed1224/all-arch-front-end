@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import AmountTotal from './AmountTotal'
 import ProjectOnboardingButtons from '../ProjectOnboardingButtons/ProjectOnboardingButtons'
 import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
+import { useContractStore } from '@/app/stores/useContractStore'
 
 interface PresentationProps {
     onContinue: (serviceData: ProjectOnboardServiceData) => void
@@ -15,9 +16,11 @@ const Presentation: React.FC<PresentationProps> = ({ onContinue, onBack }) => {
 
     const { setService } = useProjectStore()
 
+    const { updateContractBody } = useContractStore()
+
     const handleHasPresentation = (topicID: number) => {
         setHasPresentation(topicID)
-        setService('dataCollection', topicID === 2)
+        setService(5, topicID === 1)
     }
 
     useEffect(() => {
@@ -33,6 +36,11 @@ const Presentation: React.FC<PresentationProps> = ({ onContinue, onBack }) => {
                 info: hasPresentation === 1 ? 'Will be prepared' : 'Not needed',
                 status: hasPresentation === 1 ? 'applied' : 'no'
             }
+
+            updateContractBody({
+                hasPresentation: hasPresentation === 1 ? 1 : 0
+            })
+
             onContinue(data)
         }
     }

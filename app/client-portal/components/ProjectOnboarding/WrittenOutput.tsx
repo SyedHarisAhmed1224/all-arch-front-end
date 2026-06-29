@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import AmountTotal from './AmountTotal'
 import ProjectOnboardingButtons from '../ProjectOnboardingButtons/ProjectOnboardingButtons'
 import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
+import { useContractStore } from '@/app/stores/useContractStore'
 
 interface WrittenOutputProps {
     onContinue: (serviceData: ProjectOnboardServiceData) => void
@@ -16,11 +17,13 @@ const WrittenOutput: React.FC<WrittenOutputProps> = ({ onContinue, onBack }) => 
     const [continueButton, setContinueButton] = useState<boolean>(false)
 
     const { setService } = useProjectStore()
+    
+    const { updateContractBody } = useContractStore()
 
     const handleHasWrittenOutput = (outputType: number) => {
         setHasWrittenOutput(outputType)
         setShowTargetJournal(outputType === 1 || outputType === 3)
-        setService('dataCollection', outputType === 2)
+        setService(4, outputType === 2)
     }
 
     useEffect(() => {
@@ -36,6 +39,12 @@ const WrittenOutput: React.FC<WrittenOutputProps> = ({ onContinue, onBack }) => 
                 info: hasWrittenOutput === 4 ? 'Writing by client' : targetJournal.trim() !== '' ? `Jounal: ${targetJournal}` : 'Will be written',
                 status: hasWrittenOutput === 4 ? 'self' : 'applied'
             }
+
+            updateContractBody({
+                writtenOutputTypeID: hasWrittenOutput,
+                targetJournal: hasWrittenOutput === 4 ? targetJournal.trim() : ''
+            })
+
             onContinue(data)
         }
     }

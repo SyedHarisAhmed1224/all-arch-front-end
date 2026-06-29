@@ -1,10 +1,14 @@
-import axios from 'axios'
+import { ContractBody } from '@/app/types/ContractBody'
 import apiClient from '../apiClient'
+import axios from 'axios'
 
 export const ClientService = {
-    getServices: async (): Promise<BackendResponse | null> => {
+    lodgeNewContractRequest: async (contractBody: ContractBody): Promise<BackendResponse | null> => {
         try {
-            const response = await apiClient.get('/client/get-services')
+            const response = await apiClient.post(
+                '/client/insert-new-research-contract',
+                contractBody
+            )
 
             return response.data
         } catch (err) {
@@ -18,5 +22,5 @@ export const ClientService = {
 
             throw err
         }
-    },
+    }
 }

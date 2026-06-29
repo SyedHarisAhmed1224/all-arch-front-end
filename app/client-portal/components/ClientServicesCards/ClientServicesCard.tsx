@@ -8,6 +8,7 @@ export interface ClientServicesCardType {
     title: string
     info: string
     type: 'Core' | 'Optional' | 'Clinical'
+    amount: number
 }
 
 interface ClientServicesCardProps {
