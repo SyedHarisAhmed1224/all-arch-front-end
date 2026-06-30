@@ -18,6 +18,7 @@ interface ClientServicesSelectionProps {
 const ClientServicesSelection: React.FC<ClientServicesSelectionProps> = ({ clientServicesCardsInfo }) => {
 
     const [selectedServices, setSelectedServices] = useState<number[]>([])
+    const [selectedFormServices, setSelectedFormServices] = useState<number[]>([])
     const [showContract, setShowContract] = useState<boolean>(false)
     const [showOnBoarding, setShowOnBoarding] = useState<boolean>(false)
 
@@ -35,12 +36,21 @@ const ClientServicesSelection: React.FC<ClientServicesSelectionProps> = ({ clien
         initializePrices(clientServicesCardsInfo)
     }, [clientServicesCardsInfo, initializePrices])
 
-    const modifyServices = (serviceID: number) => {
-        setSelectedServices(prev =>
-            prev.includes(serviceID)
-                ? prev.filter(id => id !== serviceID)
-                : [...prev, serviceID]
-        )
+    const modifyServices = (serviceID: number, hasForm?: boolean) => {
+        if (hasForm) {
+            setSelectedFormServices(prev =>
+                prev.includes(serviceID)
+                    ? prev.filter(id => id !== serviceID)
+                    : [...prev, serviceID]
+            )
+        }
+        else {
+            setSelectedServices(prev =>
+                prev.includes(serviceID)
+                    ? prev.filter(id => id !== serviceID)
+                    : [...prev, serviceID]
+            )
+        }
     }
 
     const toggleContract = () => {
@@ -97,7 +107,7 @@ const ClientServicesSelection: React.FC<ClientServicesSelectionProps> = ({ clien
                     <ModalWrapper>
                         <ServiceAgreement
                             onAccept={acceptContract}
-                            selectedServices={selectedServices}
+                            selectedServices={[...selectedServices, ...selectedFormServices]}
                             onClose={toggleContract}
                             clientServicesCardsInfo={clientServicesCardsInfo}
                         />
@@ -112,6 +122,7 @@ const ClientServicesSelection: React.FC<ClientServicesSelectionProps> = ({ clien
                             onComplete={onComplete}
                             onClose={toggleOnBoarding}
                             selectedServices={selectedServices}
+                            selectedFormServices={selectedFormServices}
                         />
                     </ModalWrapper>
                 )
@@ -125,6 +136,7 @@ const ClientServicesSelection: React.FC<ClientServicesSelectionProps> = ({ clien
                                 onClick={modifyServices}
                                 serviceID={cardInfo.serviceId}
                                 cardInfo={cardInfo}
+                                hasForm={cardInfo.hasForm === 1}
                             />
                         </div>
                     )

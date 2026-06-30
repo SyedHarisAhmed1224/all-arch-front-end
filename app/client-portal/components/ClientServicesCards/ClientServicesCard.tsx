@@ -7,6 +7,7 @@ export interface ClientServicesCardType {
     icon: string
     title: string
     info: string
+    hasForm: number
     type: 'Core' | 'Optional' | 'Clinical'
     amount: number
 }
@@ -14,15 +15,16 @@ export interface ClientServicesCardType {
 interface ClientServicesCardProps {
     serviceID: number
     cardInfo: ClientServicesCardType
-    onClick: (serviceID: number) => void
+    hasForm?: boolean
+    onClick: (serviceID: number, isOptional?: boolean) => void
 }
 
-const ClientServicesCard: React.FC<ClientServicesCardProps> = ({ serviceID, cardInfo, onClick }) => {
+const ClientServicesCard: React.FC<ClientServicesCardProps> = ({ serviceID, cardInfo, hasForm = false, onClick }) => {
     const [isActive, setIsActive] = useState<boolean>(false)
 
     const onCardClick = () => {
         setIsActive(!isActive)
-        onClick(serviceID)
+        onClick(serviceID, hasForm)
     }
 
     return (

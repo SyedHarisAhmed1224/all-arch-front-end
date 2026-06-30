@@ -13,11 +13,12 @@ import { ProjectOnboardServiceData } from '@/app/types/ProjectOnboardingData'
 interface ProjectOnboardingProps {
     onComplete: () => void
     onClose: () => void
+    selectedFormServices: number[]
     selectedServices: number[]
 }
 
-const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onComplete, onClose, selectedServices }) => {
-    const flow = [0, ...selectedServices, 6]
+const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onComplete, onClose, selectedFormServices, selectedServices }) => {
+    const flow = [0, ...selectedFormServices, 8]
 
     const [currentStep, setCurrentStep] = useState(0)
     const [projectData, setProjectData] = useState<ProjectOnboardServiceData[]>([])
@@ -88,15 +89,15 @@ const ProjectOnboarding: React.FC<ProjectOnboardingProps> = ({ onComplete, onClo
                     <DataCollection onBack={decrementStep} onContinue={incrementStep} />
                 </div>
 
-                <div className={`${flow[currentStep] === 4 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 5 ? '' : 'hidden'}`}>
                     <WrittenOutput onBack={decrementStep} onContinue={incrementStep} />
                 </div>
 
-                <div className={`${flow[currentStep] === 5 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 7 ? '' : 'hidden'}`}>
                     <Presentation onBack={decrementStep} onContinue={incrementStep} />
                 </div>
 
-                <div className={`${flow[currentStep] === 6 ? '' : 'hidden'}`}>
+                <div className={`${flow[currentStep] === 8 ? '' : 'hidden'}`}>
                     <ProjectSummary onBack={decrementStep} onContinue={onComplete} projectData={projectData} />
                 </div>
             </div>
