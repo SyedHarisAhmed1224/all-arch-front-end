@@ -144,18 +144,18 @@ const ClientServicesSelection: React.FC<ClientServicesSelectionProps> = ({ clien
             </div>
 
             {
-                selectedServices.length <= 0 ?
+                selectedServices.length <= 0 && selectedFormServices.length <= 0 ?
                     <div className='w-full text-center text-black opacity-70 text-[0.90rem] mt-7'>
                         Select the services you need above
                     </div>
                     :
                     <div className='w-full text-center text-black text-[0.90rem] mt-7'>
-                        <span className='font-bold text-(--client-text-green)'>{selectedServices.length} service selected</span><span className='opacity-70'> — click Continue when ready</span>
+                        <span className='font-bold text-(--client-text-green)'>{[...selectedServices, ...selectedFormServices].length} service selected</span><span className='opacity-70'> — click Continue when ready</span>
                     </div>
             }
 
             <button onClick={toggleContract}
-                className={`${selectedServices.length <= 0 ? 'bg-[#DDD8D0] border-gray-300 cursor-not-allowed ' : 'bg-(--client-text-green) text-white border-(--client-text-green) transition ease-in-out duration-200 hover:bg-(--client-text-green-hover) cursor-pointer'} w-full border rounded-3xl py-3 font-semibold text-black mt-7`}>
+                className={`${selectedServices.length <= 0 && selectedFormServices.length <= 0 ? 'bg-[#DDD8D0] border-gray-300 cursor-not-allowed ' : 'bg-(--client-text-green) text-white border-(--client-text-green) transition ease-in-out duration-200 hover:bg-(--client-text-green-hover) cursor-pointer'} w-full border rounded-3xl py-3 font-semibold text-black mt-7`}>
                 <span className={`${selectedServices.length <= 0 ? 'opacity-60' : ''}`}>Continue to Contract →</span>
             </button>
         </div>

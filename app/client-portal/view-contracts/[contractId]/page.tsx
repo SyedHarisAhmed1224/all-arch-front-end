@@ -16,6 +16,8 @@ const ActiveContracts: React.FC<PageProps> = async ({ params }) => {
 
     const contractInfo: ContractInfo = await ClientServerService.getContractInfo(parseInt(contractId))
 
+    const allContractIDs: number[] = await ClientServerService.getContracts()
+
     return (
         <>
             <div className='fixed w-full z-50'>
@@ -30,7 +32,7 @@ const ActiveContracts: React.FC<PageProps> = async ({ params }) => {
                 <ViewContractBanner contractInfo={contractInfo} />
             </div>
             <div className='w-full h-fit'>
-                <ViewContractDashboard contractInfo={contractInfo} />
+                <ViewContractDashboard allContractIDs={allContractIDs} contractInfo={contractInfo} />
             </div>
         </>
     )

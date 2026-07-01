@@ -49,5 +49,27 @@ export const ClientServerService = {
         const data = response.data
 
         return data.body
+    },
+
+    getContracts: async (): Promise<number[]> => {
+        const cookieStore = await cookies()
+
+        const cookieHeader = cookieStore
+            .getAll()
+            .map(c => `${c.name}=${c.value}`)
+            .join('; ')
+
+        const response = await apiClient.get(
+            `/client/get-contracts`,
+            {
+                headers: {
+                    Cookie: cookieHeader,
+                },
+            }
+        )
+
+        const data = response.data
+
+        return data.body
     }
 }
