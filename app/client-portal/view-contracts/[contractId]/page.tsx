@@ -25,7 +25,7 @@ const ActiveContracts: React.FC<PageProps> = async ({ params }) => {
                     <Header type='view-contract' />
                 </div>
                 <div>
-                    <ClientNavBar navBarButtonSelected='/view-contracts' />
+                    <ClientNavBar navBarButtonSelected='/client-portal/view-contracts' />
                 </div>
             </div>
             <div className='w-full h-fit mt-25'>

@@ -88,7 +88,7 @@ const ClientServicesSelection: React.FC<ClientServicesSelectionProps> = ({ clien
                 toast.success('Success')
                 setTimeout(() => {
                     router.push(`/client-portal/view-contracts/${contractId}`)
-                }, 2000)
+                }, 1000)
             }
             else {
                 toast.error(res.body)

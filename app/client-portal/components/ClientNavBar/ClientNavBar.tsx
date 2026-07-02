@@ -1,4 +1,6 @@
-import { label, select } from 'framer-motion/client'
+'use client'
+
+import { useRouter } from 'next/navigation'
 
 interface NavBarButtonProps {
     icon: string
@@ -8,8 +10,15 @@ interface NavBarButtonProps {
 }
 
 const NavBarButton: React.FC<NavBarButtonProps> = ({icon, label, link='', selected}) => {
+
+    const router = useRouter()
+
+    const handleRouteChange = () => {
+        router.push(link)
+    }
+
     return (
-        <div className={`${selected ? 'border-b-2 border-b-(--custom-text-red)' : 'opacity-50 transition duration-300 ease-in-out hover:opacity-80'} cursor-pointer w-full h-full flex items-center justify-between gap-3 text-[0.8rem] font-semibold px-3`}>
+        <div onClick={handleRouteChange} className={`${selected ? 'border-b-2 border-b-(--custom-text-red)' : 'opacity-50 transition duration-300 ease-in-out hover:opacity-80'} cursor-pointer w-full h-full flex items-center justify-between gap-3 text-[0.8rem] font-semibold px-3`}>
             <span>{icon}</span>
             <span>{label}</span>
         </div>
@@ -25,17 +34,17 @@ const navBarButtons: Record<string, any>[] = [
     {
         icon: '📜',
         label: 'View Contracts',
-        link: '/view-contracts',
+        link: '/client-portal/view-contracts',
     },
     {
         icon: '👤',
         label: 'User',
-        link: '/client-user-info',
+        link: '/client-portal/client-user-info',
     }
 ]
 
 interface ClientNavBarProps {
-    navBarButtonSelected: '/client-portal' | '/view-contracts' | '/client-user-info'
+    navBarButtonSelected: '/client-portal' | '/client-portal/view-contracts' | '/client-portal/client-user-info'
 }
 
 const ClientNavBar: React.FC<ClientNavBarProps> = ({ navBarButtonSelected }) => {
