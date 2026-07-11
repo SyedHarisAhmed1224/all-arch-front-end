@@ -22,7 +22,7 @@ const ResearcherBanner: React.FC = () => {
                     </div>
 
                     <div className='min-w-17 w-fit h-full bg-[rgba(255,255,255,.06)] flex flex-col items-center justify-between py-2 px-4 rounded-xl border border-[rgba(255,255,255,.1)]'>
-                        <span className='text-[#8B5CF6] font-[lora] text-[1.2rem]'>0</span>
+                        <span className='text-(--custom-text-purple) font-[lora] text-[1.2rem]'>0</span>
                         <span className='text-white opacity-40 text-[0.7rem]'>XP</span>
                     </div>
 

@@ -15,7 +15,7 @@ const InputField: React.FC<InputFieldProps> = ({ label, placeholder = '', type='
 
     return (
         <div className='w-full h-full flex flex-col gap-1 justify-between'>
-            <label className='text-(--custom-text-color) font-semibold text-[0.9rem]' htmlFor="first-name">{label}</label>
+            <label className='text-(--custom-text-color) font-semibold text-[0.85rem] md:text-[0.9rem]' htmlFor="first-name">{label}</label>
             <input onChange={handleChange} type={type} placeholder={placeholder} className='py-2 px-3 border border-gray-300 rounded-xl' />
         </div>
     )

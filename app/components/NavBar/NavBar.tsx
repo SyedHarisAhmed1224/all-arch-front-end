@@ -68,11 +68,11 @@ const NavBar: React.FC<NavBarProps> = ({ onAuthClick }) => {
                         <Link href="#" className="text-sm font-medium text-neutral-700">Rewards</Link>
 
                         <div className="flex flex-col gap-3 pt-2">
-                            <button className="rounded-full border border-neutral-300 px-6 py-2 text-sm font-medium text-neutral-800">
+                            <button onClick={() => { onAuthClick(1) }} className="rounded-full border border-neutral-300 px-6 py-2 text-sm font-medium text-neutral-800">
                                 Log In
                             </button>
 
-                            <button className="rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white">
+                            <button onClick={() => { onAuthClick(0) }} className="rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white">
                                 Sign Up Free
                             </button>
                         </div>

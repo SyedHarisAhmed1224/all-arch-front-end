@@ -32,19 +32,24 @@ const navBarButtons: Record<string, any>[] = [
         link: '/researcher-portal',
     },
     {
-        icon: '📜',
-        label: 'View Contracts',
-        link: '/client-portal/view-contracts',
+        icon: '💼',
+        label: 'Gigs',
+        link: '/researcher-portal/gigs',
     },
     {
         icon: '👤',
-        label: 'User',
+        label: 'Profile',
+        link: '/client-portal/client-user-info',
+    },
+    {
+        icon: '🛒',
+        label: 'Shop',
         link: '/client-portal/client-user-info',
     }
 ]
 
 interface ResearcherNavBarProps {
-    navBarButtonSelected: '/researcher-portal' | '/client-portal/view-contracts' | '/client-portal/client-user-info'
+    navBarButtonSelected: '/researcher-portal' | '/researcher-portal/gigs' | '/client-portal/client-user-info'
 }
 
 const ResearcherNavBar: React.FC<ResearcherNavBarProps> = ({ navBarButtonSelected }) => {

@@ -39,7 +39,7 @@ interface RequestedServicesProps {
 const RequestedServices: React.FC<RequestedServicesProps> = ({ icon, title, description, progress, progressBarValue }) => {
     return (
         <div className='w-full h-fit bg-white rounded-2xl flex gap-5 py-5 px-5 text-(--custom-text-color) items-center justify-between'>
-            <div className={`${progress === 'waiting' ? 'bg-[#EDE8E0]' : 'bg-[#DBEAFE]'} w-12 h-12 text-[1.2rem] flex items-center justify-center py-3 px-3 rounded-xl`}>{icon}</div>
+            <div className={`${progress === 'waiting' ? 'bg-[#EDE8E0]' : 'bg-[#DBEAFE]'} w-12 h-12 text-[1rem] md:text-[1.2rem] flex items-center justify-center py-1 md:py-3 px-3 md:px-3 rounded-xl`}>{icon}</div>
 
             <div className='w-full h-full flex flex-col items-start justify-between gap-2'>
                 <span className='font-semibold'>{title}</span>
@@ -50,7 +50,7 @@ const RequestedServices: React.FC<RequestedServicesProps> = ({ icon, title, desc
                 </div>
             </div>
 
-            <div className={`${progress === 'in-queue' ? 'text-[#1e40af] bg-[#DBEAFE]' : 'text-[#6B6B6B] bg-[#EDE8E0]'} w-25 h-full px-2 py-1 text-[0.8rem] text-center text-[#1e40af] bg-[#DBEAFE] rounded-3xl font-bold`}>
+            <div className={`${progress === 'in-queue' ? 'text-[#1e40af] bg-[#DBEAFE]' : 'text-[#6B6B6B] bg-[#EDE8E0]'} w-25 h-full px-2 py-1 text-[0.6rem] md:text-[0.8rem] text-center text-[#1e40af] bg-[#DBEAFE] rounded-3xl font-bold`}>
                 {progress === 'in-queue' ? 'In Queue' : 'Waiting'}
             </div>
         </div>
@@ -81,11 +81,11 @@ const ViewContractDashboard: React.FC<ViewContractDashboardProps> = ({ contractI
 
             <div className='w-full h-fit bg-white rounded-2xl flex flex-col gap-3 py-5 px-5 text-(--custom-text-color)'>
                 <div className='flex items-center justify-between'>
-                    <div className='flex flex-col items-start justify-between gap-2 text-[0.9rem]'>
+                    <div className='flex flex-col items-start justify-between gap-2 text-[0.8rem] md:text-[0.9rem]'>
                         <span className='font-semibold'>50% Advance Due Now</span>
                         <span>Remaining 50% due on delivery</span>
                     </div>
-                    <div className='text-(--client-text-green) font-semibold text-[1.5rem] font-[lora]'>
+                    <div className='text-(--client-text-green) font-semibold text-[1.2rem] md:text-[1.5rem] font-[lora]'>
                         PKR {contractInfo.advanceAmount}
                     </div>
                 </div>
@@ -188,7 +188,7 @@ const ViewContractDashboard: React.FC<ViewContractDashboardProps> = ({ contractI
             }
 
             <div className='w-full h-fit'>
-                <div className='w-full h-fit bg-white rounded-2xl flex gap-5 py-3 text-(--custom-text-color) items-center justify-center'>
+                <div className='w-full h-fit bg-white rounded-2xl flex gap-5 py-3 px-5 text-(--custom-text-color) items-center justify-center'>
                     <span className='text-[0.9rem] opacity-80'>🔒 Progress updates will appear here once advance payment is confirmed.</span>
                 </div>
             </div>

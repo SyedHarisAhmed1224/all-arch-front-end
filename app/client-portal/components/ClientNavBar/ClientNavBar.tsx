@@ -49,7 +49,7 @@ interface ClientNavBarProps {
 
 const ClientNavBar: React.FC<ClientNavBarProps> = ({ navBarButtonSelected }) => {
     return (
-        <div className='w-full h-10 bg-(--lp-portal-info-bg-color) flex items-center justify-start text-white px-23'>
+        <div className='w-full h-10 bg-(--lp-portal-info-bg-color) flex items-center justify-start text-white px-1 md:px-23'>
             {navBarButtons.map((item: Record<string, any>, index) => {
                 return (
                     <div key={index} className='w-fit h-full'>

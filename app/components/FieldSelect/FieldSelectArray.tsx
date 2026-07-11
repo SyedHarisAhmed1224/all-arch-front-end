@@ -14,7 +14,7 @@ const FieldSelectArray: React.FC<FieldSelectArrayProps> = ({
     label,
     error,
     fields,
-    prefix='',
+    prefix = '',
     onChange,
 }) => {
     const [selected, setSelected] = useState('')
@@ -44,11 +44,13 @@ const FieldSelectArray: React.FC<FieldSelectArrayProps> = ({
                             Select your field...
                         </option>
 
-                        {fields.map((field: any) => (
-                            <option key={field} value={field}>
-                                {prefix}{field}
-                            </option>
-                        ))}
+                        {Array.isArray(fields) &&
+                            fields.map((field) => (
+                                <option key={field} value={field}>
+                                    {prefix}{field}
+                                </option>
+                            ))
+                        }
                     </select>
                 }
 
